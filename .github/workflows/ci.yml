@@ -65,7 +65,7 @@ jobs:
           cache: pip
       - run: pip install -e ".[dev]"
       - name: pip-audit
-        run: pip-audit --strict
+        run: pip-audit --strict --skip-editable
 
   secret-scan:
     name: Secret scan
