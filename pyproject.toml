@@ -62,18 +62,21 @@ strict = true
 ignore_missing_imports = true
 warn_unused_ignores = true
 mypy_path = "libs"
+# Type-check source, not tests. (Two services each have a tests/ package, which
+# would otherwise collide under the same module name.)
+exclude = "(^|/)tests/"
 
 # ---------------------------------------------------------------------------
 # pytest + coverage gate
 # ---------------------------------------------------------------------------
 [tool.pytest.ini_options]
 testpaths = ["services", "libs", "tests"]
-pythonpath = ["services/health-service", "."]
-addopts = "-ra -q"
+pythonpath = ["services/health-service", "services/backtest-service", "."]
+addopts = "-ra -q --import-mode=importlib"
 
 [tool.coverage.run]
 branch = true
-source = ["services", "libs"]
+source = ["services", "libs", "strategies"]
 omit = ["**/tests/*"]
 
 [tool.coverage.report]

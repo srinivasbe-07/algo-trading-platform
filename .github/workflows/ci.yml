@@ -27,11 +27,11 @@ jobs:
       - name: Ruff format check
         run: ruff format --check .
       - name: mypy type check
-        run: mypy services libs
+        run: mypy services libs strategies
       - name: Cyclomatic complexity (fail on rank C or worse)
-        run: radon cc -s -n C --total-average services libs
+        run: radon cc -s -n C --total-average services libs strategies
       - name: Bandit (SAST)
-        run: bandit -q -r services libs -c pyproject.toml
+        run: bandit -q -r services libs strategies -c pyproject.toml
 
   tests:
     name: Tests + coverage gate (py${{ matrix.python-version }})
@@ -97,6 +97,31 @@ jobs:
           sudo apt-get install -y trivy
       - name: Trivy image scan (fail on HIGH/CRITICAL)
         run: trivy image --severity HIGH,CRITICAL --exit-code 1 --ignore-unfixed health-service:${{ github.sha }}
+
+  frontend:
+    name: Frontend (lint, format, types, build, coverage, audit)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install --no-audit --no-fund
+      - name: Lint (ESLint)
+        run: npm run lint
+      - name: Format check (Prettier)
+        run: npm run format:check
+      - name: Type check (tsc)
+        run: npm run typecheck
+      - name: Build
+        run: npm run build
+      - name: Tests + coverage gate
+        run: npm run test:coverage
+      - name: Dependency audit (fail on high+)
+        run: npm audit --audit-level=high
 
   # Deploy runs only on main, after every gate is green. Stubbed until infra is live.
   deploy-staging:

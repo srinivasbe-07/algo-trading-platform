@@ -21,14 +21,14 @@ repos:
     hooks:
       - id: mypy
         additional_dependencies: [pydantic>=2.7]
-        args: [services, libs]
+        args: [services, libs, strategies]
         pass_filenames: false
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.9
     hooks:
       - id: bandit
-        args: [-c, pyproject.toml, -q, -r, services, libs]
+        args: [-c, pyproject.toml, -q, -r, services, libs, strategies]
         pass_filenames: false
 
   - repo: https://github.com/gitleaks/gitleaks
