@@ -1,0 +1,25 @@
+# Local development stack. Backing services are included now so they are ready
+# when the data/execution planes are built in later phases.
+services:
+  health-service:
+    build:
+      context: .
+      dockerfile: services/health-service/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      HEALTH_ENVIRONMENT: local
+
+  postgres:
+    image: timescale/timescaledb:latest-pg16
+    environment:
+      POSTGRES_USER: algo
+      POSTGRES_PASSWORD: algo
+      POSTGRES_DB: algo
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"

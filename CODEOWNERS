@@ -1,0 +1,8 @@
+# Default owners for everything
+*                       @your-org/platform
+
+# Financially critical code requires designated reviewers
+/services/risk-engine/  @your-org/risk-reviewers
+/services/oms/          @your-org/risk-reviewers
+/services/broker-gateway/ @your-org/broker-reviewers
+/libs/common/           @your-org/platform-leads
