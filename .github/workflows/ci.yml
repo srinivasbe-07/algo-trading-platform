@@ -87,13 +87,16 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build health-service image
         run: docker build -f services/health-service/Dockerfile -t health-service:${{ github.sha }} .
+      - name: Install Trivy (from official apt repo)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget gnupg
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+          echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | sudo tee /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install -y trivy
       - name: Trivy image scan (fail on HIGH/CRITICAL)
-        uses: aquasecurity/trivy-action@0.36.0
-        with:
-          image-ref: health-service:${{ github.sha }}
-          severity: HIGH,CRITICAL
-          exit-code: "1"
-          ignore-unfixed: true
+        run: trivy image --severity HIGH,CRITICAL --exit-code 1 --ignore-unfixed health-service:${{ github.sha }}
 
   # Deploy runs only on main, after every gate is green. Stubbed until infra is live.
   deploy-staging:
