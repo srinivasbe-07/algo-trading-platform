@@ -8,10 +8,6 @@ from libs.common.broker import BrokerAdapter, BrokerOrderResult, Margins
 from libs.common.models import CanonicalOrder, Position
 
 
-class Discrepancy(dict[str, object]):
-    """A position mismatch between our records and the broker's."""
-
-
 class BrokerGateway:
     def __init__(self, adapter: BrokerAdapter) -> None:
         self._adapter = adapter
@@ -33,13 +29,13 @@ class BrokerGateway:
     def margins(self) -> Margins:
         return self._adapter.get_margins()
 
-    def reconcile(self, internal_positions: dict[str, int]) -> list[Discrepancy]:
+    def reconcile(self, internal_positions: dict[str, int]) -> list[dict[str, object]]:
         """Compare our positions against the broker's; return any mismatches."""
         broker = {p.symbol: p.quantity for p in self._adapter.get_positions()}
-        out: list[Discrepancy] = []
+        out: list[dict[str, object]] = []
         for symbol in set(internal_positions) | set(broker):
             ours = internal_positions.get(symbol, 0)
             theirs = broker.get(symbol, 0)
             if ours != theirs:
-                out.append(Discrepancy(symbol=symbol, internal=ours, broker=theirs))
+                out.append({"symbol": symbol, "internal": ours, "broker": theirs})
         return out
