@@ -71,7 +71,7 @@ exclude = "(^|/)tests/"
 # ---------------------------------------------------------------------------
 [tool.pytest.ini_options]
 testpaths = ["services", "libs", "tests"]
-pythonpath = ["services/health-service", "services/backtest-service", "."]
+pythonpath = ["services/health-service", "services/backtest-service", "services/risk-engine", "."]
 addopts = "-ra -q --import-mode=importlib"
 
 [tool.coverage.run]
