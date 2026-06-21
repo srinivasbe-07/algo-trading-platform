@@ -51,7 +51,7 @@ ignore = ["UP042", "UP017"]
 max-complexity = 10
 
 [tool.ruff.lint.per-file-ignores]
-"**/tests/*" = ["S101"]
+"**/tests/*" = ["S101", "S105", "S106", "S107"]
 
 # ---------------------------------------------------------------------------
 # mypy: static typing
@@ -71,7 +71,7 @@ exclude = "(^|/)tests/"
 # ---------------------------------------------------------------------------
 [tool.pytest.ini_options]
 testpaths = ["services", "libs", "tests"]
-pythonpath = ["services/health-service", "services/backtest-service", "services/risk-engine", "services/oms", "services/paper-trade", "."]
+pythonpath = ["services/health-service", "services/backtest-service", "services/risk-engine", "services/oms", "services/paper-trade", "services/tradingview-webhook", "."]
 addopts = "-ra -q --import-mode=importlib"
 
 [tool.coverage.run]
