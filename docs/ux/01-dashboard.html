@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css"><link rel="stylesheet" href="theme.css"><title>Dashboard</title></head><body><div class="page">
+<div class="topnav"><a href="index.html"><i class="ti ti-arrow-left"></i>&nbsp; All screens</a></div>
+<h1>Dashboard</h1><p class="muted">The cockpit — P&amp;L, positions, strategies, equity curve, recent orders.</p>
+<div style="display:grid; grid-template-columns:150px minmax(0,1fr); border:0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-lg); overflow:hidden; min-height:430px;">
+  <nav style="background:var(--color-background-secondary); border-right:0.5px solid var(--color-border-tertiary); padding:14px 8px; display:flex; flex-direction:column; gap:2px;">
+    <div style="display:flex; align-items:center; gap:8px; padding:4px 8px 14px;"><i class="ti ti-chart-candle" style="font-size:20px; color:var(--color-text-info);"></i><span style="font-weight:500;">AlgoDesk</span></div>
+    <a style="display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:var(--border-radius-md); font-size:13px; background:var(--color-background-tertiary); color:var(--color-text-primary);"><i class="ti ti-layout-dashboard"></i>Dashboard</a>
+    <a style="display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:var(--border-radius-md); font-size:13px; color:var(--color-text-secondary);"><i class="ti ti-bulb"></i>Strategies</a>
+    <a style="display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:var(--border-radius-md); font-size:13px; color:var(--color-text-secondary);"><i class="ti ti-chart-histogram"></i>Backtest</a>
+    <a style="display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:var(--border-radius-md); font-size:13px; color:var(--color-text-secondary);"><i class="ti ti-file-text"></i>Paper</a>
+    <a style="display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:var(--border-radius-md); font-size:13px; color:var(--color-text-secondary);"><i class="ti ti-broadcast"></i>Live</a>
+    <a style="display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:var(--border-radius-md); font-size:13px; color:var(--color-text-secondary);"><i class="ti ti-chart-dots"></i>Simulator</a>
+    <a style="display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:var(--border-radius-md); font-size:13px; color:var(--color-text-secondary);"><i class="ti ti-shield-half"></i>Risk</a>
+    <a style="display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:var(--border-radius-md); font-size:13px; color:var(--color-text-secondary);"><i class="ti ti-list-details"></i>Orders</a>
+    <a style="display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:var(--border-radius-md); font-size:13px; color:var(--color-text-secondary);"><i class="ti ti-building-bank"></i>Brokers</a>
+  </nav>
+  <div style="background:var(--color-background-primary); padding:14px 18px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+      <span style="font-size:18px; font-weight:500;">Dashboard</span>
+      <div style="display:flex; gap:8px;">
+        <span style="font-size:12px; padding:4px 10px; border-radius:var(--border-radius-md); background:var(--color-background-info); color:var(--color-text-info);"><i class="ti ti-building-bank"></i> Zerodha · dry-run</span>
+        <span style="font-size:12px; padding:4px 10px; border-radius:var(--border-radius-md); border:0.5px solid var(--color-border-secondary); color:var(--color-text-danger);"><i class="ti ti-hand-stop"></i> Kill-switch</span>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:10px; margin-bottom:16px;">
+      <div style="background:var(--color-background-secondary); border-radius:var(--border-radius-md); padding:12px;"><div style="font-size:12px; color:var(--color-text-secondary);">Today's P&amp;L</div><div style="font-size:22px; font-weight:500; color:var(--color-text-success);">+₹13,216</div></div>
+      <div style="background:var(--color-background-secondary); border-radius:var(--border-radius-md); padding:12px;"><div style="font-size:12px; color:var(--color-text-secondary);">Open positions</div><div style="font-size:22px; font-weight:500;">3</div></div>
+      <div style="background:var(--color-background-secondary); border-radius:var(--border-radius-md); padding:12px;"><div style="font-size:12px; color:var(--color-text-secondary);">Active strategies</div><div style="font-size:22px; font-weight:500;">2</div></div>
+      <div style="background:var(--color-background-secondary); border-radius:var(--border-radius-md); padding:12px;"><div style="font-size:12px; color:var(--color-text-secondary);">Win rate</div><div style="font-size:22px; font-weight:500;">44%</div></div>
+    </div>
+    <div style="border:0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-md); padding:12px 14px; margin-bottom:14px;">
+      <div style="font-size:13px; color:var(--color-text-secondary); margin-bottom:6px;">Equity curve · today</div>
+      <svg viewBox="0 0 480 80" style="width:100%; height:72px;" preserveAspectRatio="none">
+        <polyline points="0,60 60,55 120,58 180,42 240,46 300,30 360,34 420,18 480,22" fill="none" stroke="var(--color-text-info)" stroke-width="2"/>
+        <polyline points="0,60 60,55 120,58 180,42 240,46 300,30 360,34 420,18 480,22 480,80 0,80" fill="var(--color-background-info)" stroke="none" opacity="0.5"/>
+      </svg>
+    </div>
+    <div style="border:0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-md); padding:10px 14px;">
+      <div style="font-size:13px; color:var(--color-text-secondary); margin-bottom:8px;">Recent orders</div>
+      <div style="display:flex; justify-content:space-between; font-size:13px; padding:5px 0; border-top:0.5px solid var(--color-border-tertiary);"><span><i class="ti ti-arrow-up-right" style="color:var(--color-text-success);"></i> NIFTY · BUY 50</span><span style="color:var(--color-text-success);">FILLED</span></div>
+      <div style="display:flex; justify-content:space-between; font-size:13px; padding:5px 0; border-top:0.5px solid var(--color-border-tertiary);"><span><i class="ti ti-arrow-down-right" style="color:var(--color-text-danger);"></i> NIFTY · SELL 50</span><span style="color:var(--color-text-success);">FILLED</span></div>
+      <div style="display:flex; justify-content:space-between; font-size:13px; padding:5px 0; border-top:0.5px solid var(--color-border-tertiary);"><span><i class="ti ti-arrow-up-right" style="color:var(--color-text-success);"></i> BANKNIFTY · BUY 25</span><span style="color:var(--color-text-danger);">REJECTED</span></div>
+    </div>
+  </div>
+</div></div></body></html>

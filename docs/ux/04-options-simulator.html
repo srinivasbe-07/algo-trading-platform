@@ -1,0 +1,86 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css"><link rel="stylesheet" href="theme.css"><title>Options simulator</title></head><body><div class="page">
+<div class="topnav"><a href="index.html"><i class="ti ti-arrow-left"></i>&nbsp; All screens</a></div>
+<h1>Options simulator</h1><p class="muted">From-date &amp; expiry → chain with greeks → select legs → Payoff / Legs tabs → step through time (prev/next).</p>
+<div style="border:0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-lg); padding:16px 18px; background:var(--color-background-primary);">
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px; margin-bottom:14px;">
+    <div><label style="font-size:12px;color:var(--color-text-secondary);display:block;margin-bottom:4px;">Underlying</label><select style="width:100%;"><option>NIFTY</option><option>BANKNIFTY</option></select></div>
+    <div><label style="font-size:12px;color:var(--color-text-info);display:block;margin-bottom:4px;"><i class="ti ti-calendar-event"></i> From date</label><input type="date" value="2026-06-10" style="width:100%;" /></div>
+    <div><label style="font-size:12px;color:var(--color-text-info);display:block;margin-bottom:4px;"><i class="ti ti-calendar-due"></i> Expiry</label><input type="date" value="2026-06-27" style="width:100%;" /></div>
+    <div><label style="font-size:12px;color:var(--color-text-secondary);display:block;margin-bottom:4px;">Spot</label><div style="height:36px;display:flex;align-items:center;padding:0 10px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);font-size:13px;background:var(--color-background-secondary);">20,050</div></div>
+  </div>
+  <div style="font-size:12px; color:var(--color-text-secondary); margin-bottom:6px;">Option chain · Δ delta · IV implied vol · click LTP to add a leg</div>
+  <table style="width:100%; border-collapse:collapse; table-layout:fixed; font-size:11.5px;">
+    <thead>
+      <tr style="color:var(--color-text-secondary); font-size:11px;"><th colspan="3" style="text-align:center; padding:5px 4px; font-weight:400; background:var(--color-background-secondary);">Calls</th><th></th><th colspan="3" style="text-align:center; padding:5px 4px; font-weight:400; background:var(--color-background-secondary);">Puts</th></tr>
+      <tr style="color:var(--color-text-secondary); font-size:11px;"><th style="text-align:left;padding:4px 6px;font-weight:400;">Δ</th><th style="text-align:left;padding:4px 6px;font-weight:400;">IV</th><th style="text-align:right;padding:4px 6px;font-weight:400;">LTP</th><th style="text-align:center;padding:4px 6px;font-weight:400;">Strike</th><th style="text-align:left;padding:4px 6px;font-weight:400;">LTP</th><th style="text-align:right;padding:4px 6px;font-weight:400;">IV</th><th style="text-align:right;padding:4px 6px;font-weight:400;">Δ</th></tr>
+    </thead><tbody id="chain"></tbody>
+  </table>
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin:14px 0 6px;">
+    <span style="font-size:12px; color:var(--color-text-secondary);">Selected legs</span>
+    <span style="font-size:12px; color:var(--color-text-secondary);">Net greeks <span style="color:var(--color-text-primary);">Δ −2 · Γ −0.002 · Θ +₹850 · Vega −1,200</span></span>
+  </div>
+  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
+    <span style="font-size:12px; padding:5px 10px; border-radius:var(--border-radius-md); background:var(--color-background-danger); color:var(--color-text-danger);">SELL · 20000 CE · ₹250</span>
+    <span style="font-size:12px; padding:5px 10px; border-radius:var(--border-radius-md); background:var(--color-background-danger); color:var(--color-text-danger);">SELL · 20000 PE · ₹240</span>
+  </div>
+
+  <div style="display:flex; gap:4px; border-bottom:0.5px solid var(--color-border-tertiary); margin-bottom:12px;">
+    <button id="tabPayoff" style="border:none;border-radius:0;background:transparent;border-bottom:2px solid var(--color-text-info);color:var(--color-text-info);height:34px;">Payoff</button>
+    <button id="tabLegs" style="border:none;border-radius:0;background:transparent;border-bottom:2px solid transparent;color:var(--color-text-secondary);height:34px;">Legs</button>
+  </div>
+  <div id="panelPayoff">
+    <canvas id="pf" style="width:100%; height:170px; display:block;"></canvas>
+    <div style="display:flex; gap:16px; flex-wrap:wrap; font-size:13px; margin-top:8px;"><div style="color:var(--color-text-secondary);">P&amp;L: <span id="pnlTot" style="font-weight:500;">₹0</span></div><div style="color:var(--color-text-secondary);">Θ: <span style="color:var(--color-text-success);">+₹820/day</span></div></div>
+  </div>
+  <div id="panelLegs">
+    <table style="width:100%; border-collapse:collapse; font-size:13px; table-layout:fixed;">
+      <thead><tr style="color:var(--color-text-secondary); font-size:12px;"><th style="text-align:left;padding:6px 8px;font-weight:400;">Leg</th><th style="text-align:right;padding:6px 8px;font-weight:400;">Strike</th><th style="text-align:right;padding:6px 8px;font-weight:400;">Entry</th><th style="text-align:right;padding:6px 8px;font-weight:400;">Current</th><th style="text-align:right;padding:6px 8px;font-weight:400;">P&amp;L</th></tr></thead>
+      <tbody id="legsBody"></tbody>
+      <tfoot><tr style="border-top:0.5px solid var(--color-border-secondary);"><td colspan="4" style="text-align:right;padding:7px 8px;color:var(--color-text-secondary);">Total P&amp;L</td><td id="legsTotal" style="text-align:right;padding:7px 8px;font-weight:500;">₹0</td></tr></tfoot>
+    </table>
+  </div>
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-top:14px; padding-top:12px; border-top:0.5px solid var(--color-border-tertiary);">
+    <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--color-text-secondary);"><i class="ti ti-clock"></i> <span id="clock" style="color:var(--color-text-primary); font-weight:500;">10 Jun 09:15</span> · DTE <span id="dte" style="color:var(--color-text-primary);">17.0</span></div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div style="display:inline-flex; border:0.5px solid var(--color-border-secondary); border-radius:var(--border-radius-md); overflow:hidden;">
+        <button data-tf data-m="5" style="border:none;border-radius:0;padding:6px 9px;font-size:12px;height:32px;">5m</button>
+        <button data-tf data-m="15" style="border:none;border-radius:0;padding:6px 9px;font-size:12px;height:32px;border-left:0.5px solid var(--color-border-tertiary);">15m</button>
+        <button data-tf data-m="60" style="border:none;border-radius:0;padding:6px 9px;font-size:12px;height:32px;border-left:0.5px solid var(--color-border-tertiary);">1h</button>
+        <button data-tf data-m="375" class="on" style="border:none;border-radius:0;padding:6px 9px;font-size:12px;height:32px;border-left:0.5px solid var(--color-border-tertiary);">1d</button>
+      </div>
+      <button id="prev"><i class="ti ti-chevron-left"></i></button><button id="next" style="border-color:var(--color-border-info); color:var(--color-text-info);"><i class="ti ti-chevron-right"></i></button>
+    </div>
+  </div>
+</div></div>
+<script>
+(function(){
+  var chainRows=[[0.78,16.2,520,19700,60,16.2,-0.22],[0.70,15.4,430,19800,95,15.4,-0.30],[0.61,14.6,340,19900,160,14.6,-0.39],[0.51,14.0,250,20000,240,14.0,-0.49],[0.40,14.4,175,20100,330,14.4,-0.60],[0.30,15.0,115,20200,430,15.0,-0.70],[0.22,15.8,70,20300,545,15.8,-0.78]];
+  var ct=document.getElementById("chain"),atm=20000;
+  chainRows.forEach(function(r){var sel=(r[3]===atm),tr=document.createElement("tr");tr.style.borderTop="0.5px solid var(--color-border-tertiary)";if(sel)tr.style.background="var(--color-background-secondary)";
+    function ltp(x){return '<span style="padding:2px 6px;border-radius:var(--border-radius-md);'+(sel?'background:var(--color-background-danger);color:var(--color-text-danger);':'color:var(--color-text-primary);')+'cursor:pointer;">'+x+'</span>';}var m="color:var(--color-text-secondary);";
+    tr.innerHTML='<td style="text-align:left;padding:5px 6px;'+m+'">'+r[0].toFixed(2)+'</td><td style="text-align:left;padding:5px 6px;'+m+'">'+r[1].toFixed(1)+'</td><td style="text-align:right;padding:5px 6px;">'+ltp(r[2])+'</td><td style="text-align:center;padding:5px 6px;font-weight:500;'+(sel?'color:var(--color-text-info);':'')+'">'+r[3].toLocaleString("en-IN")+'</td><td style="text-align:left;padding:5px 6px;">'+ltp(r[4])+'</td><td style="text-align:right;padding:5px 6px;'+m+'">'+r[5].toFixed(1)+'</td><td style="text-align:right;padding:5px 6px;'+m+'">'+r[6].toFixed(2)+'</td>';ct.appendChild(tr);});
+  var K=20000,lot=50,spot=20050,totalMin=17*375,stepM=375,elapsed=0;
+  var legs=[{lbl:"SELL 20000 CE",strike:20000,entry:250,extr0:200,intr:function(S){return Math.max(0,S-K);}},{lbl:"SELL 20000 PE",strike:20000,entry:240,extr0:240,intr:function(S){return Math.max(0,K-S);}}];
+  var p=getComputedStyle(document.documentElement);function v(n){return p.getPropertyValue(n).trim()||"#888";}
+  var cInfo=v("--color-text-info"),cMut=v("--color-text-secondary"),cGreen=v("--color-text-success"),cRed=v("--color-text-danger");
+  var cv=document.getElementById("pf"),ctx=cv.getContext("2d");var fmt=function(x){return Math.round(x).toLocaleString("en-IN");};
+  function rem(){return (totalMin-elapsed)/totalMin;}function legCur(l){return l.intr(spot)+l.extr0*Math.sqrt(rem());}function legPnl(l){return (l.entry-legCur(l))*lot;}
+  function totExp(S){return legs.reduce(function(a,l){return a+(l.entry-l.intr(S))*lot;},0);}function totNow(S){return legs.reduce(function(a,l){return a+(l.entry-(l.intr(S)+l.extr0*Math.sqrt(rem())))*lot;},0);}
+  function draw(){var w=cv.clientWidth,h=170;cv.width=w*2;cv.height=h*2;ctx.setTransform(2,0,0,2,0,0);ctx.clearRect(0,0,w,h);var lo=19200,hi=20800,pad=8,pMax=totExp(K),pMin=totExp(hi);function X(S){return pad+(S-lo)/(hi-lo)*(w-pad*2);}function Y(q){return 12+(pMax-q)/(pMax-pMin)*(h-28);}var yB=Y(0);
+    for(var x=pad;x<w-pad;x++){var S=lo+(x-pad)/(w-pad*2)*(hi-lo);var y=Y(totExp(S));ctx.fillStyle=totExp(S)>=0?cGreen:cRed;ctx.globalAlpha=0.14;ctx.fillRect(x,Math.min(y,yB),1,Math.abs(y-yB));}ctx.globalAlpha=1;
+    ctx.strokeStyle=cMut;ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(pad,yB);ctx.lineTo(w-pad,yB);ctx.stroke();ctx.setLineDash([]);
+    ctx.strokeStyle=cInfo;ctx.lineWidth=2;ctx.beginPath();for(var s=lo;s<=hi;s+=10){var xx=X(s),yy=Y(totExp(s));s===lo?ctx.moveTo(xx,yy):ctx.lineTo(xx,yy);}ctx.stroke();
+    ctx.strokeStyle=cMut;ctx.lineWidth=1.5;ctx.setLineDash([5,4]);ctx.beginPath();for(var s2=lo;s2<=hi;s2+=10){var x2=X(s2),y2=Y(totNow(s2));s2===lo?ctx.moveTo(x2,y2):ctx.lineTo(x2,y2);}ctx.stroke();ctx.setLineDash([]);
+    var xm=X(spot),ym=Y(totNow(spot));ctx.fillStyle=cInfo;ctx.beginPath();ctx.arc(xm,ym,4,0,7);ctx.fill();}
+  var tb=document.getElementById("legsBody");
+  function renderLegs(){tb.innerHTML="";legs.forEach(function(l){var pnl=legPnl(l),tr=document.createElement("tr");tr.style.borderTop="0.5px solid var(--color-border-tertiary)";tr.innerHTML='<td style="text-align:left;padding:6px 8px;color:var(--color-text-danger);">'+l.lbl+'</td><td style="text-align:right;padding:6px 8px;">'+l.strike.toLocaleString("en-IN")+'</td><td style="text-align:right;padding:6px 8px;">₹'+l.entry+'</td><td style="text-align:right;padding:6px 8px;">₹'+legCur(l).toFixed(1)+'</td><td style="text-align:right;padding:6px 8px;color:'+(pnl>=0?cGreen:cRed)+';">'+(pnl>=0?"+":"−")+"₹"+fmt(Math.abs(pnl))+'</td>';tb.appendChild(tr);});var t=totNow(spot),el=document.getElementById("legsTotal");el.textContent=(t>=0?"+":"−")+"₹"+fmt(Math.abs(t));el.style.color=t>=0?cGreen:cRed;}
+  function clockLabel(){var d=elapsed/375,day=10+Math.floor(d),mo=Math.round((d-Math.floor(d))*375),hh=9+Math.floor((15+mo)/60),mm=(15+mo)%60;return (day>30?day-30+" Jul":day+" Jun")+" "+("0"+hh).slice(-2)+":"+("0"+mm).slice(-2);}
+  function upd(){document.getElementById("clock").textContent=clockLabel();document.getElementById("dte").textContent=((totalMin-elapsed)/375).toFixed(1);var t=totNow(spot),o=document.getElementById("pnlTot");o.textContent=(t>=0?"+":"−")+"₹"+fmt(Math.abs(t));o.style.color=t>=0?cGreen:cRed;draw();renderLegs();}
+  var pp=document.getElementById("panelPayoff"),pl=document.getElementById("panelLegs"),tP=document.getElementById("tabPayoff"),tL=document.getElementById("tabLegs");
+  function show(w){var pay=w==="p";pp.style.display=pay?"block":"none";pl.style.display=pay?"none":"block";tP.style.borderBottom="2px solid "+(pay?"var(--color-text-info)":"transparent");tP.style.color=pay?"var(--color-text-info)":"var(--color-text-secondary)";tL.style.borderBottom="2px solid "+(pay?"transparent":"var(--color-text-info)");tL.style.color=pay?"var(--color-text-secondary)":"var(--color-text-info)";if(pay)draw();}
+  tP.addEventListener("click",function(){show("p");});tL.addEventListener("click",function(){show("l");});
+  var btns=document.querySelectorAll("[data-tf]");function act(b){btns.forEach(function(x){x.style.background="transparent";x.style.color="var(--color-text-primary)";});b.style.background="var(--color-background-info)";b.style.color="var(--color-text-info)";stepM=+b.dataset.m;}btns.forEach(function(b){b.addEventListener("click",function(){act(b);});});act(document.querySelector("[data-tf].on"));
+  document.getElementById("next").addEventListener("click",function(){elapsed=Math.min(totalMin,elapsed+stepM);upd();});document.getElementById("prev").addEventListener("click",function(){elapsed=Math.max(0,elapsed-stepM);upd();});
+  window.addEventListener("resize",draw);show("p");upd();
+})();
+</script></body></html>

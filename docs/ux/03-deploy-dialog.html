@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css"><link rel="stylesheet" href="theme.css"><title>Deploy dialog</title></head><body><div class="page">
+<div class="topnav"><a href="index.html"><i class="ti ti-arrow-left"></i>&nbsp; All screens</a></div>
+<h1>Deploy dialog</h1><p class="muted">From the strategy builder, Deploy asks: paper or live, and which broker. Click Live to see the warning adapt.</p>
+<div style="min-height:430px; background:rgba(20,20,22,0.35); border-radius:var(--border-radius-lg); display:flex; align-items:center; justify-content:center; padding:20px;">
+  <div style="width:100%; max-width:430px; background:var(--color-background-primary); border:0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-lg); padding:18px 20px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;"><span style="font-size:17px; font-weight:500;">Deploy strategy</span><i class="ti ti-x" style="font-size:18px; color:var(--color-text-secondary); cursor:pointer;"></i></div>
+    <div style="font-size:13px; color:var(--color-text-secondary); margin-bottom:16px;">Nifty MA crossover · NIFTY · 10/20</div>
+    <div style="font-size:12px; color:var(--color-text-secondary); margin-bottom:8px;">How do you want to run it?</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
+      <div id="paper" style="border:2px solid var(--color-border-info); border-radius:var(--border-radius-md); padding:12px; cursor:pointer;"><div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;"><i class="ti ti-file-text" style="font-size:18px; color:var(--color-text-info);"></i><span style="font-size:14px; font-weight:500;">Paper trade</span></div><div style="font-size:12px; color:var(--color-text-secondary);">Simulated fills, no money at risk</div></div>
+      <div id="live" style="border:0.5px solid var(--color-border-secondary); border-radius:var(--border-radius-md); padding:12px; cursor:pointer;"><div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;"><i class="ti ti-broadcast" style="font-size:18px;"></i><span style="font-size:14px; font-weight:500;">Live</span></div><div style="font-size:12px; color:var(--color-text-secondary);">Real orders to your broker</div></div>
+    </div>
+    <div style="font-size:12px; color:var(--color-text-secondary); margin-bottom:8px;">Broker</div>
+    <select style="width:100%; height:36px; margin-bottom:14px;"><option>Zerodha (Kite)</option><option>Fyers</option><option>Dhan</option><option>Upstox</option><option>Delta Exchange</option></select>
+    <div id="banner" style="display:flex; gap:8px; align-items:flex-start; font-size:12px; padding:9px 11px; border-radius:var(--border-radius-md); background:var(--color-background-info); color:var(--color-text-info); margin-bottom:16px;"><i class="ti ti-shield-check" style="font-size:15px; margin-top:1px;"></i><span>Paper trading uses a simulated broker — no money at risk. Every order is still risk-checked before routing.</span></div>
+    <div style="display:flex; justify-content:flex-end; gap:8px;"><button>Cancel</button><button style="border-color:var(--color-border-info); color:var(--color-text-info);"><i class="ti ti-rocket"></i>&nbsp; Deploy</button></div>
+  </div>
+</div></div>
+<script>
+(function(){var paper=document.getElementById("paper"),live=document.getElementById("live"),banner=document.getElementById("banner");
+function pick(sel,other,isLive){sel.style.border="2px solid var(--color-border-info)";other.style.border="0.5px solid var(--color-border-secondary)";
+if(isLive){banner.style.background="var(--color-background-warning)";banner.style.color="var(--color-text-warning)";banner.querySelector("span").textContent="Live mode places real orders. It starts in dry-run until you confirm broker credentials; all orders pass risk checks and the kill-switch.";banner.querySelector("i").className="ti ti-alert-triangle";}
+else{banner.style.background="var(--color-background-info)";banner.style.color="var(--color-text-info)";banner.querySelector("span").textContent="Paper trading uses a simulated broker — no money at risk. Every order is still risk-checked before routing.";banner.querySelector("i").className="ti ti-shield-check";}}
+paper.addEventListener("click",function(){pick(paper,live,false);});live.addEventListener("click",function(){pick(live,paper,true);});})();
+</script></body></html>

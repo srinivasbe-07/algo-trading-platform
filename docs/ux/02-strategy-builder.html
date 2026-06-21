@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css"><link rel="stylesheet" href="theme.css"><title>Strategy builder</title></head><body><div class="page">
+<div class="topnav"><a href="index.html"><i class="ti ti-arrow-left"></i>&nbsp; All screens</a></div>
+<h1>Strategy builder</h1><p class="muted">Create a strategy, set parameters &amp; risk, then Backtest, Save, or Deploy.</p>
+<div style="border:0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-lg); padding:16px 18px; background:var(--color-background-primary);">
+  <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;"><i class="ti ti-bulb" style="font-size:20px; color:var(--color-text-info);"></i><span style="font-size:18px; font-weight:500;">New strategy</span></div>
+  <div style="display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:18px;">
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div><label style="font-size:12px; color:var(--color-text-secondary); display:block; margin-bottom:4px;">Strategy name</label><input type="text" value="Nifty MA crossover" style="width:100%;" /></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div><label style="font-size:12px; color:var(--color-text-secondary); display:block; margin-bottom:4px;">Type</label><select style="width:100%;"><option>MA crossover</option><option>Opening range breakout</option><option>RSI reversal</option><option>Supertrend</option><option>Options (multi-leg)</option></select></div>
+        <div><label style="font-size:12px; color:var(--color-text-secondary); display:block; margin-bottom:4px;">Instrument</label><select style="width:100%;"><option>NIFTY</option><option>BANKNIFTY</option><option>FINNIFTY</option></select></div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+        <div><label style="font-size:12px; color:var(--color-text-secondary); display:block; margin-bottom:4px;">Fast MA</label><input type="number" value="10" style="width:100%;" /></div>
+        <div><label style="font-size:12px; color:var(--color-text-secondary); display:block; margin-bottom:4px;">Slow MA</label><input type="number" value="20" style="width:100%;" /></div>
+        <div><label style="font-size:12px; color:var(--color-text-secondary); display:block; margin-bottom:4px;">Timeframe</label><select style="width:100%;"><option>1 day</option><option>5 min</option><option>15 min</option></select></div>
+      </div>
+      <div style="border-top:0.5px solid var(--color-border-tertiary); padding-top:12px; font-size:12px; color:var(--color-text-secondary);">Position &amp; risk</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+        <div><label style="font-size:12px; color:var(--color-text-secondary); display:block; margin-bottom:4px;">Quantity</label><input type="number" value="50" style="width:100%;" /></div>
+        <div><label style="font-size:12px; color:var(--color-text-secondary); display:block; margin-bottom:4px;">Max position</label><input type="number" value="200" style="width:100%;" /></div>
+        <div><label style="font-size:12px; color:var(--color-text-secondary); display:block; margin-bottom:4px;">Daily loss ₹</label><input type="number" value="50000" style="width:100%;" /></div>
+      </div>
+    </div>
+    <div style="background:var(--color-background-secondary); border-radius:var(--border-radius-md); padding:14px;">
+      <div style="font-size:13px; font-weight:500; margin-bottom:10px;">Summary</div>
+      <div style="font-size:13px; line-height:1.9; color:var(--color-text-secondary);">
+        <div style="display:flex; justify-content:space-between;"><span>Type</span><span style="color:var(--color-text-primary);">MA crossover</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>Instrument</span><span style="color:var(--color-text-primary);">NIFTY · 1d</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>Signal</span><span style="color:var(--color-text-primary);">10 / 20</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>Qty</span><span style="color:var(--color-text-primary);">50</span></div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px; margin-top:14px;">
+        <button style="width:100%; justify-content:center;"><i class="ti ti-chart-histogram"></i>&nbsp; Backtest</button>
+        <button style="width:100%; justify-content:center;"><i class="ti ti-device-floppy"></i>&nbsp; Save</button>
+        <button style="width:100%; justify-content:center; border-color:var(--color-border-info); color:var(--color-text-info);"><i class="ti ti-rocket"></i>&nbsp; Deploy</button>
+      </div>
+    </div>
+  </div>
+</div></div></body></html>
