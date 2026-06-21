@@ -12,9 +12,9 @@ from __future__ import annotations
 
 from dataclasses import asdict
 
+from broker_gateway.adapters import build_adapter
 from broker_gateway.config import BrokerConfig
 from broker_gateway.gateway import BrokerGateway
-from broker_gateway.kite_adapter import ZerodhaKiteAdapter
 from fastapi import FastAPI
 from libs.common.feed import load_bars
 from oms.book import OrderBook
@@ -43,7 +43,8 @@ def health() -> HealthResponse:
 def live_run(fast: int = 10, slow: int = 20, quantity: int = 50) -> dict[str, object]:
     starting = 1_000_000.0
     risk = RiskEngine(RiskLimits(), RiskState(starting_equity=starting))
-    gateway = BrokerGateway(ZerodhaKiteAdapter(BrokerConfig()))
+    config = BrokerConfig()
+    gateway = BrokerGateway(build_adapter(config.broker, config))
     engine = LiveTradingEngine(risk, OrderBook(), gateway, starting_equity=starting)
     result = engine.run(MACrossover(fast=fast, slow=slow, quantity=quantity), load_bars())
 

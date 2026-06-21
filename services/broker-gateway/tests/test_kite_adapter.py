@@ -54,6 +54,6 @@ def test_margins_available_in_dry_run() -> None:
 
 
 def test_live_mode_without_credentials_raises() -> None:
-    a = ZerodhaKiteAdapter(BrokerConfig(dry_run=False, api_key=None, access_token=None))
+    a = ZerodhaKiteAdapter(BrokerConfig(dry_run=False))
     with pytest.raises(BrokerError):
         a.connect()

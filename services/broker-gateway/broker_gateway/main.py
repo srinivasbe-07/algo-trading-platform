@@ -16,14 +16,14 @@ from libs.common.broker import BrokerError, BrokerOrderResult
 from libs.common.models import CanonicalOrder
 from pydantic import BaseModel
 
+from .adapters import ADAPTERS, build_adapter
 from .config import BrokerConfig
 from .gateway import BrokerGateway
-from .kite_adapter import ZerodhaKiteAdapter
 
 app = FastAPI(title="broker-gateway", version="0.1.0")
 
 _config = BrokerConfig()
-_gateway = BrokerGateway(ZerodhaKiteAdapter(_config))
+_gateway = BrokerGateway(build_adapter(_config.broker, _config))
 
 
 class HealthResponse(BaseModel):
@@ -43,6 +43,11 @@ def health() -> HealthResponse:
 @app.get("/broker/info", tags=["broker"])
 def broker_info() -> dict[str, object]:
     return {"broker": _gateway.broker_name, "dry_run": _config.dry_run}
+
+
+@app.get("/broker/list", tags=["broker"])
+def broker_list() -> dict[str, list[str]]:
+    return {"available_brokers": sorted(ADAPTERS)}
 
 
 @app.post("/broker/orders", response_model=BrokerOrderResult, tags=["broker"])
