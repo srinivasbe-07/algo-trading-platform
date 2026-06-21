@@ -1,0 +1,4 @@
+fastapi>=0.111
+uvicorn[standard]>=0.30
+pydantic>=2.7
+# kiteconnect>=4.2   # uncomment at go-live (live Zerodha order placement)
