@@ -2,17 +2,18 @@ import { Route, Routes } from "react-router-dom";
 import { AppShell } from "./AppShell";
 import { BacktestPage } from "./pages/BacktestPage";
 import { BrokersPage } from "./pages/BrokersPage";
+import { DashboardPage } from "./pages/DashboardPage";
 import { LivePage } from "./pages/LivePage";
 import { OrdersPage } from "./pages/OrdersPage";
 import { PaperPage } from "./pages/PaperPage";
 import { RiskPage } from "./pages/RiskPage";
-import { Dashboard, Simulator, Strategies } from "./pages/pages";
+import { Simulator, Strategies } from "./pages/pages";
 
 export function App() {
   return (
     <Routes>
       <Route element={<AppShell />}>
-        <Route index element={<Dashboard />} />
+        <Route index element={<DashboardPage />} />
         <Route path="strategies" element={<Strategies />} />
         <Route path="backtest" element={<BacktestPage />} />
         <Route path="paper" element={<PaperPage />} />

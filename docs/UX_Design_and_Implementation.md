@@ -81,6 +81,7 @@ ESLint, Prettier, Vitest with coverage, all gated in CI.
 | Item | Type | Status | Notes |
 |------|------|--------|-------|
 | App shell + routing | frontend | ☑ done | UI-0 — React Router, sidebar nav, per-service API config, placeholder pages |
+| Dashboard (composed) | frontend | ☑ done | UI-3 — composes risk + OMS + broker (P&L, positions, kill-switch, recent orders) |
 | Backtest page (restyle) | frontend | ☑ done | moved into the shell at /backtest |
 | Risk panel | frontend | ☑ done | UI-1 — `/risk/state` + kill/reset |
 | Orders / Positions | frontend | ☑ done | UI-1 — `/orders`, `/positions` |
