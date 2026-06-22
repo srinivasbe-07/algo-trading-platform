@@ -7,4 +7,5 @@ export const serviceUrls = {
   risk: import.meta.env.VITE_RISK_URL ?? "http://localhost:8003",
   oms: import.meta.env.VITE_OMS_URL ?? "http://localhost:8004",
   broker: import.meta.env.VITE_BROKER_URL ?? "http://localhost:8005",
+  strategy: import.meta.env.VITE_STRATEGY_URL ?? "http://localhost:8006",
 } as const;

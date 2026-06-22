@@ -88,9 +88,9 @@ ESLint, Prettier, Vitest with coverage, all gated in CI.
 | Brokers page | frontend | ☑ done | UI-1 — `/broker/list`, `/broker/info` |
 | Paper page | frontend | ☑ done | UI-2 — `/paper/run` + equity curve |
 | Live page | frontend | ☑ done | UI-2 — `/live/run` + reconciliation |
-| Strategy builder UI | frontend | ☐ todo | needs strategy-service |
-| Deploy dialog | frontend | ☐ todo | paper/live + broker |
-| strategy-service | backend | ☐ todo | registry/persistence |
+| Strategy builder UI | frontend | ☑ done | UI-4 — builder form + saved list |
+| Deploy dialog | frontend | ☑ done | UI-4 — paper/live deploy from a saved strategy |
+| strategy-service | backend | ☑ done | UI-4 — create/list/get/delete registry (in-memory) |
 | options Black-Scholes engine | backend | ☐ todo | pricing + greeks |
 | options payoff/sim API | backend | ☐ todo | multi-leg + time step |
 | options simulator UI | frontend | ☐ todo | chain + scrubber |

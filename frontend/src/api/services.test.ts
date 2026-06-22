@@ -107,3 +107,46 @@ describe("run endpoints", () => {
     expect(r.reconciled).toBe(true);
   });
 });
+
+import { createStrategy, deleteStrategy, listStrategies } from "./strategy";
+
+describe("strategy API", () => {
+  it("create and list parse", async () => {
+    stub({
+      id: "abc",
+      name: "MA",
+      type: "ma_crossover",
+      instrument: "NIFTY",
+      fast: 10,
+      slow: 20,
+      quantity: 50,
+      max_position: 200,
+      daily_loss: 50000,
+    });
+    expect(
+      (await createStrategy({ name: "MA", instrument: "NIFTY", fast: 10, slow: 20, quantity: 50 }))
+        .id,
+    ).toBe("abc");
+    stub([
+      {
+        id: "abc",
+        name: "MA",
+        type: "ma_crossover",
+        instrument: "NIFTY",
+        fast: 10,
+        slow: 20,
+        quantity: 50,
+        max_position: 200,
+        daily_loss: 50000,
+      },
+    ]);
+    expect((await listStrategies())[0].name).toBe("MA");
+  });
+
+  it("delete resolves on ok and throws on error", async () => {
+    stub({ status: "deleted" });
+    await deleteStrategy("abc");
+    stub({}, false);
+    await expect(deleteStrategy("x")).rejects.toThrow(/Delete failed/);
+  });
+});

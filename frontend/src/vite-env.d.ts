@@ -7,4 +7,5 @@ interface ImportMetaEnv {
   readonly VITE_RISK_URL?: string;
   readonly VITE_OMS_URL?: string;
   readonly VITE_BROKER_URL?: string;
+  readonly VITE_STRATEGY_URL?: string;
 }

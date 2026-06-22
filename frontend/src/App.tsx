@@ -7,14 +7,15 @@ import { LivePage } from "./pages/LivePage";
 import { OrdersPage } from "./pages/OrdersPage";
 import { PaperPage } from "./pages/PaperPage";
 import { RiskPage } from "./pages/RiskPage";
-import { Simulator, Strategies } from "./pages/pages";
+import { StrategiesPage } from "./pages/StrategiesPage";
+import { Simulator } from "./pages/pages";
 
 export function App() {
   return (
     <Routes>
       <Route element={<AppShell />}>
         <Route index element={<DashboardPage />} />
-        <Route path="strategies" element={<Strategies />} />
+        <Route path="strategies" element={<StrategiesPage />} />
         <Route path="backtest" element={<BacktestPage />} />
         <Route path="paper" element={<PaperPage />} />
         <Route path="live" element={<LivePage />} />

@@ -27,6 +27,7 @@ SERVICES: dict[str, tuple[str, int]] = {
     "risk": ("risk_engine.main:app", 8003),
     "oms": ("oms.main:app", 8004),
     "broker": ("broker_gateway.main:app", 8005),
+    "strategy": ("strategy_service.main:app", 8006),
 }
 
 # All service source folders + repo root (some services import others).
@@ -39,6 +40,7 @@ PATHS = [
         "risk-engine",
         "oms",
         "broker-gateway",
+        "strategy-service",
     )
 ] + [str(ROOT)]
 
