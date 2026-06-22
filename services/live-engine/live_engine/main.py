@@ -16,6 +16,7 @@ from broker_gateway.adapters import build_adapter
 from broker_gateway.config import BrokerConfig
 from broker_gateway.gateway import BrokerGateway
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from libs.common.feed import load_bars
 from oms.book import OrderBook
 from pydantic import BaseModel
@@ -27,6 +28,14 @@ from strategies.ma_crossover import MACrossover
 from .engine import LiveTradingEngine
 
 app = FastAPI(title="live-engine", version="0.1.0")
+
+# Allow the local Vite dev server to call this API.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class HealthResponse(BaseModel):

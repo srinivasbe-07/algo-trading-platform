@@ -10,6 +10,7 @@ from __future__ import annotations
 from dataclasses import asdict
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from oms.book import OrderBook
 from pydantic import BaseModel
 from risk_engine.config import RiskLimits
@@ -22,6 +23,14 @@ from .engine import PaperTradingEngine
 from .feed import replay_csv
 
 app = FastAPI(title="paper-trade", version="0.1.0")
+
+# Allow the local Vite dev server to call this API.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class HealthResponse(BaseModel):

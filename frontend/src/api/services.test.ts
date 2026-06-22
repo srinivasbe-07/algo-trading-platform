@@ -66,3 +66,44 @@ describe("service API clients", () => {
     await expect(getRiskState()).rejects.toThrow(/Request failed/);
   });
 });
+
+import { runPaper } from "./paper";
+import { runLive } from "./live";
+
+describe("run endpoints", () => {
+  it("runPaper posts with params and parses", async () => {
+    stub({
+      starting_equity: 1_000_000,
+      final_equity: 1_004_674,
+      realized_pnl: 4674,
+      orders_submitted: 18,
+      orders_filled: 18,
+      orders_rejected: 0,
+      return_pct: 0.47,
+      positions: { NIFTY: 0 },
+      equity_curve: [],
+    });
+    const r = await runPaper({ fast: 10, slow: 20, quantity: 50 });
+    expect(r.orders_filled).toBe(18);
+  });
+
+  it("runLive parses broker + reconciliation", async () => {
+    stub({
+      broker: "zerodha-kite",
+      reconciled: true,
+      discrepancies: [],
+      starting_equity: 1_000_000,
+      final_equity: 1_016_633,
+      realized_pnl: 16633,
+      orders_submitted: 18,
+      orders_filled: 18,
+      orders_rejected: 0,
+      return_pct: 1.66,
+      positions: { NIFTY: 0 },
+      equity_curve: [],
+    });
+    const r = await runLive({ fast: 10, slow: 20, quantity: 50 });
+    expect(r.broker).toBe("zerodha-kite");
+    expect(r.reconciled).toBe(true);
+  });
+});

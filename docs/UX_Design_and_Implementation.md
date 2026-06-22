@@ -85,8 +85,8 @@ ESLint, Prettier, Vitest with coverage, all gated in CI.
 | Risk panel | frontend | ☑ done | UI-1 — `/risk/state` + kill/reset |
 | Orders / Positions | frontend | ☑ done | UI-1 — `/orders`, `/positions` |
 | Brokers page | frontend | ☑ done | UI-1 — `/broker/list`, `/broker/info` |
-| Paper page | frontend | ☐ todo | `/paper/run` |
-| Live page | frontend | ☐ todo | `/live/run` |
+| Paper page | frontend | ☑ done | UI-2 — `/paper/run` + equity curve |
+| Live page | frontend | ☑ done | UI-2 — `/live/run` + reconciliation |
 | Strategy builder UI | frontend | ☐ todo | needs strategy-service |
 | Deploy dialog | frontend | ☐ todo | paper/live + broker |
 | strategy-service | backend | ☐ todo | registry/persistence |
