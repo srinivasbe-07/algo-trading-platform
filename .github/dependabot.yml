@@ -4,6 +4,10 @@ updates:
     directory: "/"
     schedule: { interval: weekly }
     open-pull-requests-limit: 10
+    # Minor/patch only; major framework bumps are handled by hand.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule: { interval: weekly }
@@ -14,3 +18,8 @@ updates:
     directory: "/frontend"
     schedule: { interval: weekly }
     open-pull-requests-limit: 10
+    # Skip major bumps — they break the React 18 / Vite 5 stack (React 19, Vite 8).
+    # Majors are upgraded deliberately, not auto-proposed.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
