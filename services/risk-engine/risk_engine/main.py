@@ -14,6 +14,7 @@ multi-instance support come when we scale.
 from __future__ import annotations
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from libs.common.models import CanonicalOrder, RiskDecision, Side
 from pydantic import BaseModel
 
@@ -22,6 +23,14 @@ from .engine import RiskEngine
 from .state import RiskState
 
 app = FastAPI(title="risk-engine", version="0.1.0")
+
+# Allow the local Vite dev server (and configured origins) to call this API.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # A single in-process engine for the demo. Wired to config/persistence later.
 _engine = RiskEngine(RiskLimits(), RiskState(starting_equity=1_000_000.0))

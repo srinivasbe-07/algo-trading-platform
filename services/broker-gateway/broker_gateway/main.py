@@ -12,6 +12,7 @@ POST /broker/reconcile   - compare supplied internal positions vs broker
 from __future__ import annotations
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from libs.common.broker import BrokerError, BrokerOrderResult
 from libs.common.models import CanonicalOrder
 from pydantic import BaseModel
@@ -21,6 +22,14 @@ from .config import BrokerConfig
 from .gateway import BrokerGateway
 
 app = FastAPI(title="broker-gateway", version="0.1.0")
+
+# Allow the local Vite dev server (and configured origins) to call this API.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 _config = BrokerConfig()
 _gateway = BrokerGateway(build_adapter(_config.broker, _config))

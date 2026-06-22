@@ -82,9 +82,9 @@ ESLint, Prettier, Vitest with coverage, all gated in CI.
 |------|------|--------|-------|
 | App shell + routing | frontend | ☑ done | UI-0 — React Router, sidebar nav, per-service API config, placeholder pages |
 | Backtest page (restyle) | frontend | ☑ done | moved into the shell at /backtest |
-| Risk panel | frontend | ☐ todo | `/risk/*` |
-| Orders / Positions | frontend | ☐ todo | `/orders`, `/positions` |
-| Brokers page | frontend | ☐ todo | `/broker/list` |
+| Risk panel | frontend | ☑ done | UI-1 — `/risk/state` + kill/reset |
+| Orders / Positions | frontend | ☑ done | UI-1 — `/orders`, `/positions` |
+| Brokers page | frontend | ☑ done | UI-1 — `/broker/list`, `/broker/info` |
 | Paper page | frontend | ☐ todo | `/paper/run` |
 | Live page | frontend | ☐ todo | `/live/run` |
 | Strategy builder UI | frontend | ☐ todo | needs strategy-service |

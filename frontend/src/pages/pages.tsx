@@ -27,12 +27,3 @@ export const Simulator = () => (
     description="Options chain, greeks, payoff, and the time-step simulator."
   />
 );
-export const Risk = () => (
-  <Placeholder title="Risk" description="Positions, P&L, limits, and the kill-switch." />
-);
-export const Orders = () => (
-  <Placeholder title="Orders" description="The full order book and current positions." />
-);
-export const Brokers = () => (
-  <Placeholder title="Brokers" description="Connected brokers and the active adapter." />
-);

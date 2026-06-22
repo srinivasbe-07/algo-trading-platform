@@ -1,16 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import { AppShell } from "./AppShell";
 import { BacktestPage } from "./pages/BacktestPage";
-import {
-  Brokers,
-  Dashboard,
-  Live,
-  Orders,
-  Paper,
-  Risk,
-  Simulator,
-  Strategies,
-} from "./pages/pages";
+import { BrokersPage } from "./pages/BrokersPage";
+import { OrdersPage } from "./pages/OrdersPage";
+import { RiskPage } from "./pages/RiskPage";
+import { Dashboard, Live, Paper, Simulator, Strategies } from "./pages/pages";
 
 export function App() {
   return (
@@ -22,9 +16,9 @@ export function App() {
         <Route path="paper" element={<Paper />} />
         <Route path="live" element={<Live />} />
         <Route path="simulator" element={<Simulator />} />
-        <Route path="risk" element={<Risk />} />
-        <Route path="orders" element={<Orders />} />
-        <Route path="brokers" element={<Brokers />} />
+        <Route path="risk" element={<RiskPage />} />
+        <Route path="orders" element={<OrdersPage />} />
+        <Route path="brokers" element={<BrokersPage />} />
       </Route>
     </Routes>
   );
