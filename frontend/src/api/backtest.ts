@@ -1,7 +1,7 @@
 import type { BacktestDetail, BacktestParams } from "../types";
+import { serviceUrls } from "./config";
 
-// The backend base URL. Override at build time with VITE_API_BASE if needed.
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+const API_BASE = serviceUrls.backtest;
 
 export async function runBacktest(params: BacktestParams): Promise<BacktestDetail> {
   const url = new URL(`${API_BASE}/backtest/detail`);

@@ -80,8 +80,8 @@ ESLint, Prettier, Vitest with coverage, all gated in CI.
 
 | Item | Type | Status | Notes |
 |------|------|--------|-------|
-| App shell + routing | frontend | ☐ todo | UI-0 |
-| Backtest page (restyle) | frontend | ☐ todo | API ready |
+| App shell + routing | frontend | ☑ done | UI-0 — React Router, sidebar nav, per-service API config, placeholder pages |
+| Backtest page (restyle) | frontend | ☑ done | moved into the shell at /backtest |
 | Risk panel | frontend | ☐ todo | `/risk/*` |
 | Orders / Positions | frontend | ☐ todo | `/orders`, `/positions` |
 | Brokers page | frontend | ☐ todo | `/broker/list` |
