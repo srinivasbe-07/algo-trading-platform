@@ -2,7 +2,9 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { BacktestDetail } from "../types";
 import { runBacktest } from "./backtest";
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
 
 const payload: BacktestDetail = {
   metrics: {

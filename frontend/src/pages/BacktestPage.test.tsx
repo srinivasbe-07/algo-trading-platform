@@ -29,7 +29,9 @@ const detail: BacktestDetail = {
   trades: [],
 };
 
-afterEach(() => vi.clearAllMocks());
+afterEach(() => {
+  vi.clearAllMocks();
+});
 
 describe("BacktestPage", () => {
   it("runs a backtest and renders metrics", async () => {
